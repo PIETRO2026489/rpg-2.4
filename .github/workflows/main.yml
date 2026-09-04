@@ -14,22 +14,33 @@ jobs:
       - name: Baixar código
         uses: actions/checkout@v4
 
+      - name: Verificar arquivos
+        shell: powershell
+        run: |
+          Write-Host "Arquivos do repositório:"
+          Get-ChildItem -Recurse
+
+          if (!(Test-Path "jogo.py")) {
+            Write-Host "ERRO: jogo.py não foi encontrado na raiz do projeto."
+            exit 1
+          }
+
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Instalar dependências
+      - name: Instalar Pygame e PyInstaller
         run: |
           python -m pip install --upgrade pip
-          pip install pygame pyinstaller
+          python -m pip install pygame pyinstaller
 
       - name: Gerar EXE
         run: |
-          pyinstaller --onefile --windowed --name "Reino_de_Elementaria" jogo.py
+          python -m PyInstaller --onefile --windowed --name "Reino_de_Elementaria" jogo.py
 
-      - name: Salvar EXE
+      - name: Disponibilizar EXE
         uses: actions/upload-artifact@v4
         with:
-          name: Reino_de_Elementaria
+          name: Reino_de_Elementaria_EXE
           path: dist/Reino_de_Elementaria.exe
