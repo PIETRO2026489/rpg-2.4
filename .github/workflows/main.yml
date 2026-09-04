@@ -1,0 +1,23 @@
+@echo off
+title Gerador de EXE - Reino de Elementaria
+
+echo ==========================================
+echo    REINO DE ELEMENTARIA - GERAR EXE
+echo ==========================================
+echo.
+
+echo [1/3] Instalando PyInstaller...
+py -m pip install --upgrade pyinstaller
+
+echo.
+echo [2/3] Gerando o executavel...
+py -m PyInstaller --onefile --windowed --name "Reino_de_Elementaria" jogo.py
+
+echo.
+echo [3/3] Finalizado!
+echo.
+echo O executavel foi criado em:
+echo dist\Reino_de_Elementaria.exe
+echo.
+
+pause
